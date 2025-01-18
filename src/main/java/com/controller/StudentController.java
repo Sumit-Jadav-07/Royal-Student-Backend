@@ -37,7 +37,7 @@ public class StudentController {
             return ResponseEntity.ok("No Student Found");
         }
         List<StudentEntity> students = studentRepo.findByNameStartingWith(characters);
-        return ResponseEntity.ok(students); 
+        return ResponseEntity.ok(students);
     }
 
     @GetMapping("/getStudentById/{id}")
@@ -47,6 +47,12 @@ public class StudentController {
             return ResponseEntity.ok(op.get());
         }
         return ResponseEntity.ok("Student not found");
+    }
+
+    @GetMapping("/getAllStudents")
+    public ResponseEntity<?> getAllStudents(){
+        List<StudentEntity> students = studentRepo.findAll();
+        return ResponseEntity.ok(students);
     }
 
     @PutMapping("/editstudent/{id}")
