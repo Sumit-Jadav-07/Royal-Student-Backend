@@ -51,8 +51,11 @@ public class StudentController {
 
     @GetMapping("/getAllStudents")
     public ResponseEntity<?> getAllStudents(){
+        HashMap<String,Object> response = new HashMap<String,Object>();
         List<StudentEntity> students = studentRepo.findAll();
-        return ResponseEntity.ok(students);
+        response.put("data",students);
+        response.put("status",true);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/editstudent/{id}")
