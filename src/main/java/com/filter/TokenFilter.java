@@ -27,10 +27,11 @@ public class TokenFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
+
         HttpServletRequest req = (HttpServletRequest) request;
         String url = req.getRequestURL().toString();
-        
-        if (url.contains("/public/") || url.contains("/v3/") || url.contains("/swagger-resources/") 
+
+        if (url.contains("/public/") || url.contains("/v3/") || url.contains("/swagger-resources/")
             || url.contains("/swagger-ui/") || url.contains("/webjars/**")) {
             chain.doFilter(request, response);
             return;
@@ -44,12 +45,12 @@ public class TokenFilter implements Filter {
 
             if (jwtService.validateToken(token)) {
                 String email = jwtService.validateTokeAndGetEmail(token);
-                
-                UsernamePasswordAuthenticationToken authentication = 
+
+                UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
-                        email, 
+                        email,
                         null,
-                        Collections.singletonList(new SimpleGrantedAuthority("admin")) 
+                        Collections.singletonList(new SimpleGrantedAuthority("admin"))
                     );
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
